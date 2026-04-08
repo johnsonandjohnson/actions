@@ -1,4 +1,4 @@
-# JnJ R Open-Source Github Actions
+# JnJ R Open-Source GitHub Actions
 
 
 ### CI/CD Configurations
