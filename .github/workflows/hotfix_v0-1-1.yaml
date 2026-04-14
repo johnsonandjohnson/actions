@@ -34,10 +34,10 @@ jobs:
         with:
           path: hotfix_repo
 
-      - name: Checkout Junco v0.1.2
+      - name: Checkout Junco v0.1.1
         uses: actions/checkout@v4
         with:
-          ref: refs/heads/v0.1.2
+          ref: refs/heads/v0.1.1
           path: junco_source
 
       - name: Inject Hotfix into Source Code
