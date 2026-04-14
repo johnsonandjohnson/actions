@@ -34,16 +34,16 @@ jobs:
         with:
           path: hotfix_repo
 
-      - name: Checkout Junco v0.1.1
+      - name: Checkout Junco v0.1.2
         uses: actions/checkout@v4
         with:
-          ref: refs/heads/v0.1.1
+          ref: refs/heads/v0.1.2
           path: junco_source
 
       - name: Inject Hotfix into Source Code
         shell: bash
         run: |
-          HOTFIX="hotfix_repo/dev/junco_hotfix.R"
+          HOTFIX="hotfix_repo/dev/junco_hotfix_v0-1-1.R"
           TARGET="junco_source/R/zzz_hotfix.R" 
           
           if [ -f "$HOTFIX" ]; then
