@@ -25,6 +25,7 @@ jobs:
     env:
       GITHUB_PAT: ${{ secrets.GITHUB_TOKEN }}
       R_KEEP_PKG_SOURCE: yes
+      RSPM: "https://packagemanager.posit.co/cran/2024-04-20"
 
     steps:
       - name: Checkout Hotfix Branch
