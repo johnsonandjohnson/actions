@@ -25,7 +25,7 @@ jobs:
     env:
       GITHUB_PAT: ${{ secrets.GITHUB_TOKEN }}
       R_KEEP_PKG_SOURCE: yes
-      CRAN: "https://packagemanager.posit.co/cran/2024-04-20"
+      CRAN: "https://packagemanager.posit.co/cran/2026-01-15"
 
     steps:
       - name: Checkout Hotfix Branch
