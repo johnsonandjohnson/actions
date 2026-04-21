@@ -76,7 +76,7 @@ jobs:
           options(rgl.useNULL = TRUE)
           Sys.setenv(NOT_CRAN = "true") 
           
-          message(">>> Running  devtools::test() with hotfix...")
+          message(">>> Running  devtools::test('junco_source') with hotfix...")
           
           res <- devtools::test()
           
