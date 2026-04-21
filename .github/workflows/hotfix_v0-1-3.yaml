@@ -72,18 +72,20 @@ jobs:
           message(">>> Running tests against patched memory...")
           reporter <- testthat::ListReporter$new()
           
-          hotpatchR::test_patched_dir(
-            pkg = "junco", 
-            test_path = "junco_source/tests/testthat",
-            reporter = reporter
-          )
+           # Setup environment
+          options(rgl.useNULL = TRUE)
+          Sys.setenv(NOT_CRAN = "true") 
           
-          df <- as.data.frame(reporter$get_results())
+          message(">>> Running  devtools::test() with hotfix...")
+          
+          res <- devtools::test()
+          
+          df <- as.data.frame(res)
           total_fails <- sum(df$failed) + sum(df$error)
           
           if (total_fails > 0) {
             cat("\n❌ HOTFIX FAILED: Test failures detected.\n")
             stop(sprintf("PIPELINE HALTED: %d tests failed or errored.", total_fails), call. = FALSE)
           } else {
-            message("\n✅ SUCCESS: All tests passed. Hotfix is clean.")
+            message("\n✅ SUCCESS: All tests passed. Hotfix is passing.")
           }
