@@ -76,9 +76,9 @@ jobs:
           options(rgl.useNULL = TRUE)
           Sys.setenv(NOT_CRAN = "true") 
           
-          message(">>> Running  devtools::test('junco_source') with hotfix...")
+          message(">>> Running  devtools::test() with hotfix...")
           
-          res <- devtools::test()
+          res <- devtools::test('junco_source')
           
           df <- as.data.frame(res)
           total_fails <- sum(df$failed) + sum(df$error)
