@@ -38,7 +38,7 @@ jobs:
       - name: Checkout Junco v0.1.3
         uses: actions/checkout@v4
         with:
-          ref: refs/heads/v0.1.3_updated_tests
+          ref: refs/heads/v0.1.3
           path: junco_source
 
       - name: Inject Hotfix into Source Code
