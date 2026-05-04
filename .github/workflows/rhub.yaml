@@ -26,8 +26,7 @@ on:
           r-release-linux-x86_64,
           r-release-windows-x86_64,
           r-oldrel-macos-arm64,
-          r-oldrel-windows-x86_64,
-          donttest
+          r-oldrel-windows-x86_64
       lookup-refs:
         description: |
           List of package references to be used for the feature branch.
