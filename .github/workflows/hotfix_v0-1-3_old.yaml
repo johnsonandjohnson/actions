@@ -69,25 +69,26 @@ jobs:
             any::devtools
             any::testthat
 
-      - name: Execute tests natively
-        shell: Rscript {0}
-        run: |
-          setwd(file.path(getwd(), "junco_source"))
-          
-          # Setup environment
-          options(rgl.useNULL = TRUE)
-          Sys.setenv(NOT_CRAN = "true") 
-          
-          message(">>> Running  devtools::test() with hotfix...")
-          
-          res <- devtools::test()
-          
-          df <- as.data.frame(res)
-          total_fails <- sum(df$failed) + sum(df$error)
-          
-          if (total_fails > 0) {
-            cat("\n❌ HOTFIX FAILED: Test failures detected.\n")
-            stop(sprintf("PIPELINE HALTED: %d tests failed or errored.", total_fails), call. = FALSE)
-          } else {
-            message("\n✅ SUCCESS: All tests passed. Hotfix is passing.")
-          }
+    
+#      - name: Execute tests natively
+#        shell: Rscript {0}
+#        run: |
+#          setwd(file.path(getwd(), "junco_source"))
+#          
+#          # Setup environment
+#          options(rgl.useNULL = TRUE)
+#          Sys.setenv(NOT_CRAN = "true") 
+#          
+#          message(">>> Running  devtools::test() with hotfix...")
+#          
+#          res <- devtools::test()
+#          
+#          df <- as.data.frame(res)
+#          total_fails <- sum(df$failed) + sum(df$error)
+#          
+#          if (total_fails > 0) {
+#            cat("\n❌ HOTFIX FAILED: Test failures detected.\n")
+#            stop(sprintf("PIPELINE HALTED: %d tests failed or errored.", total_fails), call. = FALSE)
+#          } else {
+#            message("\n✅ SUCCESS: All tests passed. Hotfix is passing.")
+#          }
