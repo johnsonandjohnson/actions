@@ -88,3 +88,4 @@ jobs:
             stop(sprintf("PIPELINE HALTED: %d tests failed or errored.", total_fails), call. = FALSE)
           } else {
             message("\n✅ SUCCESS: All tests passed. Hotfix is passing.")
+          }
