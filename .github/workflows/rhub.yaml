@@ -23,7 +23,6 @@ on:
         # in setup-r-dependencies step "Modify DESCRIPTION file (development)"
         default: >-
           r-release-linux-x86_64,
-          r-oldrel-linux-x86_64,
           r-release-windows-x86_64,
           r-oldrel-windows-x86_64
       lookup-refs:
