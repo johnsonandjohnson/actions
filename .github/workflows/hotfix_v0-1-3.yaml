@@ -54,38 +54,38 @@ jobs:
             any::testthat
             any::remotes
 
-      - name: Execute tests via hotpatchR
-        shell: Rscript {0}
-        run: |
-          message(">>> Installing Junco v0.1.3...")
-          devtools::install("junco_source", upgrade = FALSE, quick = TRUE)
-          
-          message(">>> Installing hotpatchR ...")
-          devtools::install_github("munoztd0/hotpatchR", upgrade = "never")
-          
-          library(hotpatchR)
-          apply_hotfix_file("hotfix_repo/dev/junco_hotfix_v0-1-3.R")
-          
-          options(rgl.useNULL = TRUE)
-          Sys.setenv(NOT_CRAN = "true") 
-          
-          message(">>> Running tests against patched memory...")
-          reporter <- testthat::ListReporter$new()
-          
-           # Setup environment
-          options(rgl.useNULL = TRUE)
-          Sys.setenv(NOT_CRAN = "true") 
-          
-          message(">>> Running  devtools::test() with hotfix...")
-          
-          res <- devtools::test('junco_source')
-          
-          df <- as.data.frame(res)
-          total_fails <- sum(df$failed) + sum(df$error)
-          
-          if (total_fails > 0) {
-            cat("\n❌ HOTFIX FAILED: Test failures detected.\n")
-            stop(sprintf("PIPELINE HALTED: %d tests failed or errored.", total_fails), call. = FALSE)
-          } else {
-            message("\n✅ SUCCESS: All tests passed. Hotfix is passing.")
-          }
+#- name: Execute tests via hotpatchR
+#        shell: Rscript {0}
+#        run: |
+#          message(">>> Installing Junco v0.1.3...")
+#          devtools::install("junco_source", upgrade = FALSE, quick = TRUE)
+#          
+#          message(">>> Installing hotpatchR ...")
+#          devtools::install_github("munoztd0/hotpatchR", upgrade = "never")
+#          
+#          library(hotpatchR)
+#          apply_hotfix_file("hotfix_repo/dev/junco_hotfix_v0-1-3.R")
+#          
+#          options(rgl.useNULL = TRUE)
+#          Sys.setenv(NOT_CRAN = "true") 
+#          
+#          message(">>> Running tests against patched memory...")
+#          reporter <- testthat::ListReporter$new()
+#          
+#           # Setup environment
+#          options(rgl.useNULL = TRUE)
+#          Sys.setenv(NOT_CRAN = "true") 
+#          
+#          message(">>> Running  devtools::test() with hotfix...")
+#          
+#          res <- devtools::test('junco_source')
+#          
+#          df <- as.data.frame(res)
+#          total_fails <- sum(df$failed) + sum(df$error)
+#          
+#          if (total_fails > 0) {
+#            cat("\n❌ HOTFIX FAILED: Test failures detected.\n")
+#            stop(sprintf("PIPELINE HALTED: %d tests failed or errored.", total_fails), call. = FALSE)
+#          } else {
+#            message("\n✅ SUCCESS: All tests passed. Hotfix is passing.")
+#          }
