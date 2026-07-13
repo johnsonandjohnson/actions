@@ -1,0 +1,55 @@
+---
+name: checktor 🩺
+
+on:
+  workflow_dispatch:
+  workflow_call:
+  push:
+    branches: [main]
+  pull_request:
+
+concurrency:
+  group: checktor-${{ github.event.pull_request.number || github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  checktor:
+    name: Extra-CRAN checks 🏥
+    runs-on: ubuntu-latest
+    if: >
+      !contains(github.event.commits[0].message, '[skip checktor]')
+        && github.event.pull_request.draft == false
+
+    steps:
+      - name: Checkout repo 🛎
+        uses: actions/checkout@v4
+
+      - name: Setup R 📦
+        uses: r-lib/actions/setup-r@v2
+        with:
+          use-public-rspm: true
+
+      - name: Install dependencies 🧱
+        uses: r-lib/actions/setup-r-dependencies@v2
+        with:
+          extra-packages: coatless-rpkg/checktor
+
+      - name: Run checktor 🩺
+        run: |
+          checktor::configure_doctor(verbose_default = FALSE, progress_default = FALSE)
+          results <- checktor::checktor()
+          if (!checktor::is_healthy(results)) {
+            writeLines("
+          ──────────────────────────────────────────────────────────────────
+           checktor found issues that need attention
+          ──────────────────────────────────────────────────────────────────
+            ")
+            writeLines(checktor::health_report(results))
+            quit(status = 1)
+          }
+          writeLines("
+          ──────────────────────────────────────────────────────────────────
+           ✓ Package is healthy — no checktor issues found
+          ──────────────────────────────────────────────────────────────────
+          ")
+        shell: Rscript {0}
